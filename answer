@@ -1,0 +1,29 @@
+/ script.js
+
+document.addEventListener("DOMContentLoaded", function () {
+    const box = document.getElementById("box");
+    const button = document.getElementById("animateBtn");
+    const speedSelect = document.getElementById("speed");
+
+    // Load stored animation speed
+    const savedSpeed = localStorage.getItem("animationSpeed");
+    if (savedSpeed) {
+        speedSelect.value = savedSpeed;
+    }
+
+    // Apply animation speed from selection
+    speedSelect.addEventListener("change", function () {
+        localStorage.setItem("animationSpeed", this.value);
+    });
+
+    button.addEventListener("click", function () {
+        // Remove old animation class
+        box.classList.remove("animated");
+
+        // Change animation speed dynamically
+        box.style.animationDuration = speedSelect.value;
+
+        // Re-add the class to restart animation
+        setTimeout(() => box.classList.add("animated"), 10);
+    });
+});
